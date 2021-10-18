@@ -33,7 +33,25 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// checking args...
 		if len(args) == 1 {
+
+			// calling the read and calculate function
+			outs, err := counters.CountOthers(args[0])
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				// checking flags here
+				arr := []string{"vowel", "consonant", "letter", "space", "digit", "pmark"}
+				for order, f := range arr {
+					fstatus, _ := cmd.Flags().GetBool(f)
+					// if the flag called we print the count
+					if fstatus {
+						fmt.Printf("%s count: %d\n", f, outs[order])
+					}
+				}
+			}
+
 			// calling the wordCount function
 			results, err := counters.CountWord(args[0])
 			if err != nil {
@@ -49,20 +67,18 @@ to quickly create a Cobra application.`,
 		} else {
 			fmt.Println("just entering one filename")
 		}
+
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(countCmd)
 	countCmd.Flags().BoolP("word", "w", false, "Show Word Count")
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// countCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// countCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	countCmd.Flags().BoolP("vowel", "v", false, "Show Vowel Count")
+	countCmd.Flags().BoolP("consonant", "c", false, "Show Consonant Count")
+	countCmd.Flags().BoolP("letter", "l", false, "Show Letter Count")
+	countCmd.Flags().BoolP("space", "s", false, "Show Space Count")
+	countCmd.Flags().BoolP("digit", "d", false, "Show Digit Count")
+	countCmd.Flags().BoolP("pmark", "p", false, "Show Punctuation Mark Count")
+	countCmd.Flags().BoolP("time", "t", false, "Show Elapsed Time")
 }
