@@ -5,7 +5,7 @@ ReCo is a simple Go CLI built with [Cobra](https://github.com/spf13/cobra) that 
 </br>
 Read files and calculates:
  - word count,
- - number of letter,
+ - number of letters,
  - number of vowels/consonants,
  - the number of punctuation marks/spaces.
  
