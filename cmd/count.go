@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/3n0ugh/ReCo/counters"
 	"github.com/spf13/cobra"
 )
 
@@ -32,12 +33,28 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("count called")
+		if len(args) == 1 {
+			// calling the wordCount function
+			results, err := counters.CountWord(args[0])
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				// checking word flag calling or not
+				fstatus, _ := cmd.Flags().GetBool("word")
+				if fstatus {
+					// if word flag called we print the count
+					fmt.Printf("Word Count: %d\n", results)
+				}
+			}
+		} else {
+			fmt.Println("just entering one filename")
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(countCmd)
+	countCmd.Flags().BoolP("word", "w", false, "Show Word Count")
 
 	// Here you will define your flags and configuration settings.
 
