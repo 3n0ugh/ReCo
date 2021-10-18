@@ -19,7 +19,7 @@ func CountOthers(fileName string) ([]int64, error) {
 	var vowelCount int64
 	var consonantCount int64
 	var pMarkCount int64
-	var numCount int64
+	var digitCount int64
 	var spaceCount int64
 
 	jobs := make(chan string, 20)
@@ -37,7 +37,7 @@ func CountOthers(fileName string) ([]int64, error) {
 		close(jobs)
 	}()
 	// starting goroutine
-	go countQuery(jobs, done, &vowelCount, &pMarkCount, &numCount, &consonantCount, &spaceCount)
+	go countQuery(jobs, done, &vowelCount, &pMarkCount, &digitCount, &consonantCount, &spaceCount)
 
 	// waiting to end of countQuery
 	<-done
@@ -45,11 +45,11 @@ func CountOthers(fileName string) ([]int64, error) {
 
 	// adding results to result slice
 	var result []int64
-	result = append(result, vowelCount, pMarkCount, numCount, consonantCount, spaceCount)
+	result = append(result, vowelCount, consonantCount, spaceCount, digitCount, pMarkCount, vowelCount+consonantCount)
 	return result, nil
 }
 
-func countQuery(jobs <-chan string, done chan<- bool, vowelCount, pMarkCount, numCount, consonantCount, spaceCount *int64) {
+func countQuery(jobs <-chan string, done chan<- bool, vowelCount, pMarkCount, digitCount, consonantCount, spaceCount *int64) {
 
 	for w := range jobs { // receiving words from jobs channel
 		for _, s := range w { // making conditions on words
@@ -64,7 +64,7 @@ func countQuery(jobs <-chan string, done chan<- bool, vowelCount, pMarkCount, nu
 				atomic.AddInt64(pMarkCount, 1)
 			// digits ascii values
 			case 48, 49, 50, 51, 52, 53, 54, 55, 56, 57:
-				atomic.AddInt64(numCount, 1)
+				atomic.AddInt64(digitCount, 1)
 			case 32, 10:
 				atomic.AddInt64(spaceCount, 1)
 			default:

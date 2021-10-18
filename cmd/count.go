@@ -45,7 +45,7 @@ to quickly create a Cobra application.`,
 				fmt.Println(err)
 			} else {
 				// checking flags here
-				arr := []string{"vowel", "consonant", "letter", "space", "digit", "pmark"}
+				arr := []string{"vowel", "consonant", "space", "digit", "pmark", "letter"}
 				for order, f := range arr {
 					fstatus, _ := cmd.Flags().GetBool(f)
 					// if the flag called we print the count
