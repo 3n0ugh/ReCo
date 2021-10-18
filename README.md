@@ -11,7 +11,7 @@ Read files and calculates:
  
 The name ReCo is an abbreviation for read and count.
 
-If you want to build new command-line interfaces, here is the [blog]().
+If you want to build new command-line interfaces, here is the [blog](https://medium.com/@3n0ugh/creating-cli-in-go-with-cobra-d6f83dcbab1c).
 
 # Instructions
 
