@@ -15,7 +15,9 @@ limitations under the License.
 */
 package main
 
-import "github.com/3n0ugh/GoCliWithCobra/cmd"
+import (
+	"github.com/3n0ugh/ReCo/cmd"
+)
 
 func main() {
 	cmd.Execute()
