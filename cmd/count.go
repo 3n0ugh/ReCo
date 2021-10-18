@@ -17,6 +17,7 @@ package cmd
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/3n0ugh/ReCo/counters"
 	"github.com/spf13/cobra"
@@ -35,6 +36,8 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// checking args...
 		if len(args) == 1 {
+			// time starting for time flag
+			start := time.Now()
 
 			// calling the read and calculate function
 			outs, err := counters.CountOthers(args[0])
@@ -64,10 +67,16 @@ to quickly create a Cobra application.`,
 					fmt.Printf("Word Count: %d\n", results)
 				}
 			}
+
+			// checking for time flag
+			fstatus, _ := cmd.Flags().GetBool("time")
+			if fstatus {
+				// if time flag called we print the count
+				fmt.Printf("elapsed time: %v\n", time.Since(start))
+			}
 		} else {
 			fmt.Println("just entering one filename")
 		}
-
 	},
 }
 
