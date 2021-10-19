@@ -60,7 +60,7 @@ func countQuery(jobs <-chan string, done chan<- bool, vowelCount, pMarkCount, di
 			// punctation marks ascii values
 			case 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
 				46, 47, 58, 59, 60, 61, 62, 63, 64, 92, 93, 95, 96,
-				123, 124, 125, 126:
+				123, 124, 125, 126, 8217:
 				atomic.AddInt64(pMarkCount, 1)
 			// digits ascii values
 			case 48, 49, 50, 51, 52, 53, 54, 55, 56, 57:

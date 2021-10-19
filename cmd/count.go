@@ -64,7 +64,7 @@ to quickly create a Cobra application.`,
 				fstatus, _ := cmd.Flags().GetBool("word")
 				if fstatus {
 					// if word flag called we print the count
-					fmt.Printf("Word Count: %d\n", results)
+					fmt.Printf("word count: %d\n", results)
 				}
 			}
 
